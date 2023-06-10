@@ -232,3 +232,57 @@ begin
 	proc14(var1, 3);
 end;
 / 
+
+
+--- trigger with insert
+
+SET SERVEROUTPUT ON
+CREATE OR REPLACE TRIGGER trigger1
+after insert ON relation1 
+REFERENCING OLD AS o NEW AS n
+FOR EACH ROW
+Enable
+BEGIN
+insert into trainer_info values(:n.trainer_id, null, null, null, null );
+insert into course_info values(:n.course_id, null, null, null, null );
+END;
+/
+
+insert into relation1 values(301, 301);
+select * from relation1;
+select * from course_info;
+select * from trainer_info;
+
+
+--- trigger with delete
+--- this trigger won't work as i've used on delete cascade
+
+SET SERVEROUTPUT ON
+CREATE OR REPLACE TRIGGER trigger2
+BEFORE delete ON course_info 
+REFERENCING OLD AS o NEW AS n
+FOR EACH ROW
+Enable
+BEGIN
+delete from trainer_info where course_id=:o.course_id;
+delete from trainee_info where course_id=:o.course_id;
+END;
+/
+
+delete from course_info where course_id=9; 
+
+--- trigger with update
+
+SET SERVEROUTPUT ON
+CREATE OR REPLACE TRIGGER trigger3
+AFTER update ON course_info 
+REFERENCING OLD AS o NEW AS n
+FOR EACH ROW
+Enable
+BEGIN
+update payment_info set amount=90000 where course_id=:o.course_id;
+END;
+/
+
+update course_info set course_name='new course' where course_id=8;
+

@@ -46,6 +46,17 @@ insert into payment_info values(8, 8, 35000);
 insert into payment_info values(9, 9, 35000);
 insert into payment_info values(10, 10, 50000);
 
+
+insert into relation1 values(101,1);
+insert into relation1 values(102,2);
+insert into relation1 values(103,3);
+insert into relation1 values(101,4);
+insert into relation1 values(102,5);
+insert into relation1 values(101,6);
+insert into relation1 values(101,7);
+insert into relation1 values(104,8);
+insert into relation1 values(106,1);
+
 -- 1. use of where-> show trainer's info who takes course-4.
 
 select * from trainer_info where course_id=4;

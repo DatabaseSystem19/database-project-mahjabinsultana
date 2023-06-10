@@ -37,6 +37,11 @@ create table payment_info(
     primary key(payment_id),
     foreign key(course_id) references course_info(course_id)on delete cascade);
 
+create table relation1(
+    Trainer_id number,
+    course_id number,
+    foreign key(course_id) references course_info(course_id)on delete cascade,
+    foreign key(trainer_id) references trainer_info(trainer_id)on delete cascade);
 
 -- 1. adding a column in the table
 
